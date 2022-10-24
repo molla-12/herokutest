@@ -1,20 +1,20 @@
-import React, { useState,useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Avatar, Button, Grid, Typography, Paper, Container, Box } from '@material-ui/core';
 import { Alert, AlertTitle } from '@material-ui/lab';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import { GoogleLogin } from 'react-google-login';
-import { useDispatch ,useSelector} from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import useStyles from './styles';
 import Input from './Input';
 import Icon from './icon';
-import { signin, signup } from '../../actions/auth';
+import { signin, signup, error } from '../../actions/auth';
 
 const initialState = { firstName: '', lastName: '', email: '', password: '', confirmPassword: '' };
 const Auth = () => {
     const [showPassword, setShowPasseword] = useState(false);
     const [isSignUp, setIsSignUp] = useState(false);
-    const error =useSelector((state)=>state?.error);
+    const error = useSelector((state) => state?.error);
     const dispatch = useDispatch();
     const [formData, setFormData] = useState(initialState);
     const navigate = useNavigate();
@@ -28,6 +28,7 @@ const Auth = () => {
         } else {
             dispatch(signin(formData, navigate));
         }
+        dispatch(error(console.log(error)));
     };
 
     const handleChange = (e) => {
